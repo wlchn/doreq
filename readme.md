@@ -1,2 +1,2 @@
 # Doreq
-An API tool for Mac
+A GUI API tool for Mac, written by Golang.
