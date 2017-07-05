@@ -13,6 +13,7 @@ func main() {
         box := ui.NewVerticalBox()
 
         urlEntry := ui.NewEntry()
+        jsonLabel := ui.NewLabel("Input json:")
         jsonEntry := ui.NewEntry()
         goButton := ui.NewButton("Go->")
         resLabel := ui.NewLabel("")
@@ -20,19 +21,35 @@ func main() {
 
         box.Append(ui.NewLabel("Input url:"), false)
         box.Append(urlEntry, false)
-        box.Append(ui.NewLabel("Input json:"), false)
+        box.Append(jsonLabel, false)
         box.Append(jsonEntry, false)
         box.Append(selectCombobox, false)
         box.Append(goButton, false)
         box.Append(resLabel, false)
+
+        jsonLabel.Hide()
+        jsonEntry.Hide()
 
         selectCombobox.Append("Get")
         selectCombobox.Append("Post")
 
         selectCombobox.SetSelected(0)
 
-        window := ui.NewWindow("Hello", 400, 300, false)
+        window := ui.NewWindow("Doreq - Do request", 400, 300, false)
         window.SetChild(box)
+
+        selectCombobox.OnSelected(func(*ui.Combobox) {
+            selectedIndex := selectCombobox.Selected()
+            fmt.Println("selectedIndex:>", selectedIndex)
+            switch selectedIndex {
+                case 1:
+                    jsonLabel.Show()
+                    jsonEntry.Show()
+                default:
+                    jsonLabel.Hide()
+                    jsonEntry.Hide()
+            }
+        })
 
         goButton.OnClicked(func(*ui.Button) {
             fmt.Printf("goButton pressed\n")
