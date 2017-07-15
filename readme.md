@@ -1,5 +1,5 @@
 # Doreq
-A GUI API tool for Mac written in Golang. The name Doreq is abbreviation of "Do Request".
+A GUI API tool for Mac written in Go. The name Doreq is abbreviation of "Do Request".
 ## Run
 ``` golang
 go run main.go

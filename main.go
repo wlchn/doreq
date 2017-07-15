@@ -15,7 +15,7 @@ func main() {
         urlEntry := ui.NewEntry()
         jsonLabel := ui.NewLabel("Input json:")
         jsonEntry := ui.NewEntry()
-        goButton := ui.NewButton("Go->")
+        goButton := ui.NewButton("Go")
         resLabel := ui.NewLabel("")
         selectCombobox := ui.NewCombobox()
 
