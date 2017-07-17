@@ -11,7 +11,7 @@ import (
 func main() {
     err := ui.Main(func() {
         vBox := ui.NewVerticalBox()
-        // hBox := ui.NewHorizontalBox()
+        hBox := ui.NewHorizontalBox()
 
         urlEntry := ui.NewEntry()
         jsonLabel := ui.NewLabel("Input json:")
@@ -21,12 +21,19 @@ func main() {
         selectCombobox := ui.NewCombobox()
 
         vBox.Append(ui.NewLabel("Input url:"), false)
-        vBox.Append(urlEntry, false)
+
+        hBox.Append(selectCombobox, false)
+        hBox.Append(urlEntry, true)
+        hBox.Append(goButton, false)
+        hBox.SetPadded(true)
+
+        vBox.Append(hBox, false)
+
         vBox.Append(jsonLabel, false)
         vBox.Append(jsonEntry, false)
-        vBox.Append(selectCombobox, false)
-        vBox.Append(goButton, false)
         vBox.Append(resLabel, false)
+
+        vBox.SetPadded(true)
 
         jsonLabel.Hide()
         jsonEntry.Hide()
@@ -38,6 +45,7 @@ func main() {
 
         window := ui.NewWindow("doreq - Do Request", 800, 600, false)
         window.SetChild(vBox)
+        window.SetMargined(true)
 
         selectCombobox.OnSelected(func(*ui.Combobox) {
             selectedIndex := selectCombobox.Selected()
