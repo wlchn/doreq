@@ -20,8 +20,6 @@ func main() {
         resLabel := ui.NewLabel("")
         selectCombobox := ui.NewCombobox()
 
-        vBox.Append(ui.NewLabel("Input url:"), false)
-
         hBox.Append(selectCombobox, false)
         hBox.Append(urlEntry, true)
         hBox.Append(goButton, false)
