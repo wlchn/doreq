@@ -3,8 +3,10 @@ package main
 import (
     "fmt"
     "bytes"
+    "strconv"
     "net/http"
     "io/ioutil"
+    "encoding/json"
     "github.com/andlabs/ui"
 )
 
@@ -68,15 +70,7 @@ func main() {
                         resLabel.SetText(err.Error())
                         return
                     }
-                    if resp.StatusCode == 200 {
-                        bodyBytes, err := ioutil.ReadAll(resp.Body)
-                        if err != nil {
-                            return
-                        }
-                        bodyString := string(bodyBytes)
-                        fmt.Printf(bodyString)
-                        resLabel.SetText(bodyString)
-                    }
+                    handleResp(resp, resLabel)
                 case 1:
                     url := urlEntry.Text()
                     fmt.Println("URL:", url)
@@ -91,13 +85,7 @@ func main() {
                     if err != nil {
                         panic(err)
                     }
-                    defer resp.Body.Close()
-
-                    fmt.Println("response Status:", resp.Status)
-                    fmt.Println("response Headers:", resp.Header)
-                    body, _ := ioutil.ReadAll(resp.Body)
-                    resLabel.SetText(string(body))
-                    fmt.Println("response Body:", string(body))
+                    handleResp(resp, resLabel)
                 default:
                     fmt.Printf("no selected")
             }
@@ -111,5 +99,30 @@ func main() {
     })
     if err != nil {
         panic(err)
+    }
+}
+
+func isJSON(s string) bool {
+    var js map[string]interface{}
+    return json.Unmarshal([]byte(s), &js) == nil
+}
+
+func handleResp(resp *http.Response, label *ui.Label) {
+    defer resp.Body.Close()
+    fmt.Println("response Status:", resp.Status)
+    fmt.Println("response Headers:", resp.Header)
+
+    if resp.StatusCode == 200 {
+        bodyBytes, err := ioutil.ReadAll(resp.Body)
+        if err != nil {
+            return
+        }
+        bodyString := string(bodyBytes)
+        if !isJSON(bodyString) {
+            bodyString = "Response is not json."
+        }
+        label.SetText(bodyString)
+    } else {
+        label.SetText("Error with code " + strconv.Itoa(resp.StatusCode))
     }
 }
