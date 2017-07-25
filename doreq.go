@@ -41,13 +41,13 @@ func main() {
 
         selectCombobox.SetSelected(0)
 
-        window := ui.NewWindow("doreq - Do Request", 800, 600, false)
+        window := ui.NewWindow("doreq - do request", 800, 600, false)
         window.SetChild(vBox)
         window.SetMargined(true)
 
         selectCombobox.OnSelected(func(*ui.Combobox) {
             selectedIndex := selectCombobox.Selected()
-            fmt.Println("selectedIndex:>", selectedIndex)
+            fmt.Println("selectedIndex:", selectedIndex)
             switch selectedIndex {
                 case 1:
                     jsonLabel.Show()
@@ -79,7 +79,7 @@ func main() {
                     }
                 case 1:
                     url := urlEntry.Text()
-                    fmt.Println("URL:>", url)
+                    fmt.Println("URL:", url)
                     jsonStr := jsonEntry.Text()
 
                     var jsonBytes = []byte(jsonStr)
