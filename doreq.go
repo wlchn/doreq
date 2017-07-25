@@ -28,11 +28,9 @@ func main() {
         hBox.SetPadded(true)
 
         vBox.Append(hBox, false)
-
         vBox.Append(jsonLabel, false)
         vBox.Append(jsonEntry, false)
         vBox.Append(resLabel, false)
-
         vBox.SetPadded(true)
 
         jsonLabel.Hide()
@@ -40,7 +38,6 @@ func main() {
 
         selectCombobox.Append("Get")
         selectCombobox.Append("Post")
-
         selectCombobox.SetSelected(0)
 
         window := ui.NewWindow("doreq - do request", 800, 600, false)
